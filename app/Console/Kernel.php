@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // every 10 seconds
-        $schedule->command('schedule:list')->cron('*/30 * * * * *');
+        $schedule->command('schedule:list')->everyMinute();
     }
 
     /**
