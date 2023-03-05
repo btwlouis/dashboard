@@ -21,9 +21,11 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Deine offenen Tickets</span>
                     <span class="info-box-number">{{ $open_tickets }}</span>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: {{ number_format($open_tickets / $all_tickets * 100) }}%"></div>
-                    </div>
+                    @if($open_tickets != 0 && $all_tickets != 0)
+                        <div class="progress">
+                            <div class="progress-bar" style="width: {{ number_format($open_tickets / $all_tickets * 100) }}%"></div>
+                        </div>
+                    @endif
                 </div>
 
             </div>
