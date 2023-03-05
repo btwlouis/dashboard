@@ -118,8 +118,8 @@
                         
                         @foreach($templates as $template)
                             <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-block btn-warning" id="template" data-content="{{ $template->content }}">{{ $template->name }}</a>
+                                <div class="col-12 mb-3">
+                                    <a class="btn btn-block btn-info" onclick="onClick(this)" data-id="{{ $template->id }}">{{ $template->name }}</a>
                                 </div>
                             </div>
                         @endforeach
@@ -201,14 +201,25 @@
 
 @section('afterscripts')
     <script>
-        $(function() {
-            $("#template").click(function() {
-                var content = $(this).data('content');
 
-                console.log(content)
-                $("#text").val(content)
-            });
-        })
+        function onClick(el) {
+            const id = $(el).data('id');
+            var content = "";
+
+            var templates = {{ Js::from($templates) }}
+
+            console.log(templates)
+
+            for (let i = 0; i < templates.length; i++) {
+                if(templates[i].id == id) {
+                    content = templates[i].content;
+                }
+            }
+
+            console.log(content)
+
+            $("#text").val(content);
+        }
     </script>
 @endsection
 
