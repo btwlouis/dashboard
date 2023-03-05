@@ -129,7 +129,12 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <a class="btn btn-block btn-danger">Ticket löschen</a>
+
+                            <form method="POST" action="{{  route('ticket.destroy', $ticket->id) }}">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-block btn-danger">Ticket löschen</button>
+                            </form>
                         </div>
                     </div>
                 </div>

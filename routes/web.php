@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth', 'is.admin']], function () {
     Route::post('/tickets/{ticket}', [TicketController::class, 'sendDiscordMessage'])->name('ticket.send');
 
     // delete ticket
-    //Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('ticket.destroy');
+    Route::post('/tickets/{ticket}/close', [TicketController::class, 'destroy'])->name('ticket.destroy');
 
     // template routes
 

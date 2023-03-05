@@ -48,6 +48,17 @@ class TicketController extends Controller
             }
         }
 
+        // check if channel is deleted
+
+        $tickets = Ticket::all();
+
+        foreach($tickets as $ticket) {
+            if(!in_array($ticket->channel_id, array_column($channels, 'id'))) {
+                $ticket->status = 'closed';
+                $ticket->save();
+            }
+        }
+
         // show open tickets
         $tickets = Ticket::where('status', 'open')->get();
 
@@ -132,6 +143,29 @@ class TicketController extends Controller
 
         return redirect()->back();
         
+    }
+
+    public function destroy(Request $request, $id) {
+        $ticket = Ticket::findOrFail($id);
+
+        $client = new Client();
+
+        $headers = [
+            'Content-type'  => 'application/json; charset=utf-8',
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+        ];
+
+        $res = $client->request('DELETE', env('DISCORD_API_URL') . '/channels/' . $ticket->channel_id, [
+            'headers' => $headers,
+        ]);
+
+        $ticket->status = 'closed';
+        $ticket->save();
+
+        activity()->log('Ticket ' . $ticket->name . ' wurde geschlossen.');
+
+        return redirect()->route('ticket.index')->with('success', 'Ticket geschlossen!');
     }
 
 }

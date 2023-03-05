@@ -19,7 +19,6 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Zugeordnet zu</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Priorität</th>
                                 <th scope="col">Aktualisiert am</th>
                                 <th scope="col">Aktionen</th>
                             </tr>
@@ -43,33 +42,19 @@
                                     <td>
                                         @switch($ticket->status)
                                             @case('open')
-                                                <span class="badge badge-success">{{ $ticket->status }}</span>
+                                                <span class="badge badge-success">Offen</span>
                                                 @break
                                             @case('in_progress')
-                                                <span class="badge badge-warning">{{ $ticket->status }}</span>
+                                                <span class="badge badge-warning">In Bearbeitung</span>
                                                 @break
                                             @case('closed')
-                                                <span class="badge badge-danger">{{ $ticket->status }}</span>
+                                                <span class="badge badge-danger">Geschlossen</span>
                                                 @break
                                             @default
-                                                <span class="badge badge-secondary">{{ $ticket->status }}</span>
+                                                <span class="badge badge-secondary">Kein Status</span>
                                         @endswitch
                                     </td>
-                                    <td>
-                                        @switch($ticket->priority)
-                                            @case('low')
-                                                <span class="badge badge-success">{{ $ticket->priority }}</span>
-                                                @break
-                                            @case('medium')
-                                                <span class="badge badge-warning">{{ $ticket->priority }}</span>
-                                                @break
-                                            @case('high')
-                                                <span class="badge badge-danger">{{ $ticket->priority }}</span>
-                                                @break
-                                            @default
-                                                <span class="badge badge-secondary">{{ $ticket->priority }}</span>
-                                        @endswitch
-                                    </td>
+                                    
                                     <td>{{ Carbon\Carbon::parse($ticket->updated_at)->format('d.m.Y - H:i') }}</td>
                                     <td>
                                         <a href="{{ route('ticket.show', $ticket->id) }}" class="btn btn-primary">Anzeigen</a>

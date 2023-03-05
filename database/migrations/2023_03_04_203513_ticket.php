@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('channel_id');
             $table->string('name');
             $table->string('status')->default('open');
-            $table->string('priority')->default('low');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
