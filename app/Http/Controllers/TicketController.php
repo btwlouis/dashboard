@@ -8,13 +8,12 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Models\Template;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewTicket;
 
 class TicketController extends Controller
 {
-    
-
-    //
-    public function index()
+    public static function migrateChannels()
     {
         $client = new Client();
 
@@ -41,15 +40,20 @@ class TicketController extends Controller
 
         foreach($channels as $channel) {
             if(in_array($channel->parent_id, $channelId)) {
-                Ticket::firstOrCreate([
+                // check if ticket exists
+                $ticket = Ticket::where('channel_id', $channel->id)->first();
+
+                if($ticket) {
+                    continue;
+                }
+
+                $ticket = Ticket::firstOrCreate([
                     'channel_id' => $channel->id,
                     'name' => $channel->name,
                 ]);
             }
         }
-
-        // check if channel is deleted
-
+        
         $tickets = Ticket::all();
 
         foreach($tickets as $ticket) {
@@ -58,7 +62,10 @@ class TicketController extends Controller
                 $ticket->save();
             }
         }
+    }
 
+    public function index()
+    {
         // show open tickets
         $tickets = Ticket::where('status', 'open')->get();
 
