@@ -27,7 +27,9 @@ class TicketController extends Controller
         $channelId = [
             env('DISCORD_SUPPORT_CATEGORY_ID'),
             env('DISCORD_BUY_CATEGORY_ID'),
-            env('DISCORD_CUSTOM_CATEGORY_ID')
+            env('DISCORD_CUSTOM_CATEGORY_ID'),
+            env('DISCORD_LOUIS_CATEGORY_ID'),
+            env('DISCORD_SAVAS_CATEGORY_ID'),
         ];
 
         $res = $client->request('GET', env('DISCORD_API_URL') . '/guilds/' . $guildId . '/channels', [
