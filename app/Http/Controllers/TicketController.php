@@ -119,7 +119,7 @@ class TicketController extends Controller
         if($request->content) {
             $content = $request->content;
 
-            $content = $content . "\n\n*Geschrieben von " . auth()->user()->name . '*';
+            $content = $content . " ^" . auth()->user()->name;
 
             $client = new Client();
 
