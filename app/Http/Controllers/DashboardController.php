@@ -11,9 +11,10 @@ class DashboardController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        $open_tickets = $user->tickets()->where('status', 'open')->count();
-        $all_tickets = Ticket::count();
-        $user_count = User::count();
+        
+        $open_tickets = $user->tickets()->where('status', 'open')->count() | 0;
+        $all_tickets = Ticket::count() | 0;
+        $user_count = User::count() | 0;
         
         return view('dashboard', compact('user', 'open_tickets', 'all_tickets', 'user_count'));
     }
