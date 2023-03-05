@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="icheck-primary">
-                                    <input type="checkbox" id="checkboxPrimary1" name="is_admin" {{ $user->is_admin ? 'checked' : '' }}>
+                                    <input type="checkbox" id="checkboxPrimary1" name="is_admin" {{ $user->hasPermission('team') ? 'checked' : '' }}>
                                     <label for="checkboxPrimary1">
                                         Admin
                                     </label>

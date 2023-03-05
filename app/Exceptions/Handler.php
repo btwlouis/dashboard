@@ -41,8 +41,8 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (\Junges\ACL\Exceptions\UnauthorizedException $exception, $request) {
+            return redirect()->route('login')->withError('Du hast keine Berechtigung, diese Aktion auszuführen.');
         });
     }
 }

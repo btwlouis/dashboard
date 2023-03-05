@@ -48,7 +48,7 @@
                             <td>{{ Carbon\Carbon::parse($user->updated_at)->format('d.m.Y - H:i') }}</td>
 
                             <td>
-                                @if ($user->is_admin)
+                                @if ($user->hasPermission('team'))
                                     <span class="badge badge-success">Ja</span>
                                 @else
                                     <span class="badge badge-danger">Nein</span>

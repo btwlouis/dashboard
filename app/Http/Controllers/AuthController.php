@@ -54,7 +54,7 @@ class AuthController extends Controller
             ]);
         }
 
-        if (!auth()->user()->is_admin) {
+        if(!auth()->user()->hasPermission('team')) {
             return back()->withErrors([
                 'message' => 'Dein Account ist kein Admin-Account. Bitte kontaktiere einen Administator.'
             ]);

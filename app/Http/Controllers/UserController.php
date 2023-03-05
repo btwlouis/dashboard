@@ -54,11 +54,9 @@ class UserController extends Controller
         }
         
         if($request->is_admin) {
-            if($request->is_admin == 'on') {
-                $data['is_admin'] = 1;
-            }
+            $user->assignPermission('team');
         } else {
-            $data['is_admin'] = 0;
+            $user->revokePermission('team');
         }
 
         User::whereId($id)->update($data);
