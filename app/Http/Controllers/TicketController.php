@@ -72,8 +72,10 @@ class TicketController extends Controller
 
         $messages = json_decode($res->getBody()->getContents());
 
-        // show all admins
-        $admins = User::hasRole('team')->get();
+        // show all admins with team permission
+        $admins = User::all()->filter(function($user) {
+            return $user->hasPermission('team');
+        });
 
         $templates = Template::all();
 
