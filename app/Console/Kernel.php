@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('migrate-channels')->everyMinute();
+        // every 10 seconds
+        $schedule->command('schedule:list')->cron('*/30 * * * * *');
     }
 
     /**
