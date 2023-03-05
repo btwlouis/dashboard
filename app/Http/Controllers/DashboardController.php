@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
         $open_tickets = $user->tickets()->where('status', 'open')->count();
         $all_tickets = Ticket::count();
-        $user_count = User::count()
+        $user_count = User::count();
         
         return view('dashboard', compact('user', 'open_tickets', 'all_tickets', 'user_count'));
     }
