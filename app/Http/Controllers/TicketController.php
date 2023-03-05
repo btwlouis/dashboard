@@ -117,6 +117,12 @@ class TicketController extends Controller
                 ])
             ]);
 
+            // assign ticket to user if not already assigned
+            if(!$ticket->assigned_to) {
+                $user = auth()->user();
+                $user->tickets()->save($ticket);
+            }
+
             activity()->log('Nachricht an Ticket ' . $ticket->name . ' gesendet.');
 
             return redirect()->back()->with('success', 'Nachricht gesendet!');
