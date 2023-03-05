@@ -160,7 +160,7 @@
                                         </span>
             
                                         <h3 class="timeline-header">
-                                            <img src="https://cdn.discordapp.com/avatars/{{ $message->author->id }}/{{ $message->author->avatar }}?size=32">
+                                            <img src="https://cdn.discordapp.com/avatars/{{ $message->author->id }}/{{ $message->author->avatar }}?size=32" height="32px" width="32px" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png?size=32';">
                                             <a href="#">
                                                 {{ $message->author->username }}
                                             </a>
@@ -169,7 +169,14 @@
                                         <div class="timeline-body">
                                             @if($message->attachments)
                                                 @foreach($message->attachments as $attachment)
-                                                    <img src="{{ $attachment->url }}" style="max-width: 100%; max-height: 100%;" class="zoom">
+                                                    @if($attachment->content_type == "video/mp4")
+                                                        <video controls style="max-width: 100%; max-height: 100%;" class="zoom">
+                                                            <source src="{{ $attachment->url }}" type="video/mp4">
+                                                        </video>
+                                                    @else 
+                                                        <img src="{{ $attachment->url }}" style="max-width: 100%; max-height: 100%;" class="zoom">
+                                                    @endif
+
                                                 @endforeach
 
                                                 <br>
