@@ -48,11 +48,20 @@
                             <td>{{ Carbon\Carbon::parse($user->updated_at)->format('d.m.Y - H:i') }}</td>
 
                             <td>
-                                @if ($user->hasPermission('team'))
-                                    <span class="badge badge-success">Ja</span>
-                                @else
-                                    <span class="badge badge-danger">Nein</span>
-                                @endif
+                                @foreach($user->permissions()->get() as $permission)
+                                    @switch($permission->name)
+                                        @case ('admin')
+                                            <span class="badge badge-danger">
+                                                {{ $permission->name }}
+                                            </span>
+                                            @break
+                                        @case ('team')
+                                            <span class="badge badge-warning">
+                                                {{ $permission->name }}
+                                            </span>
+                                            @break
+                                    @endswitch
+                                @endforeach
 
                             </td>
                             <td>

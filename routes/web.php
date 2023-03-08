@@ -34,13 +34,21 @@ Route::group(['middleware' => ['auth', 'is.admin']], function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // user routes
-    Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-    
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update');
+    // only admin permission
 
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::group(['middleware' => ['can:admin']], function () {
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update');
+    
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+        Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
+        
+        // template routes
+        Route::resource('templates', TemplateController::class);
+    });
 
     Route::get('/tickets', [TicketController::class, 'index'])->name('ticket.index');
     Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('ticket.show');
@@ -53,13 +61,5 @@ Route::group(['middleware' => ['auth', 'is.admin']], function () {
 
     // delete ticket
     Route::post('/tickets/{ticket}/close', [TicketController::class, 'destroy'])->name('ticket.destroy');
-
-    // template routes
-
-    Route::resource('templates', TemplateController::class);
-
-    // logs 
-    Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
-
 
 });

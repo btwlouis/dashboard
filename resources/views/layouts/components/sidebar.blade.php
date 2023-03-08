@@ -23,6 +23,9 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               
+          <li class="nav-header">TEAM</li>
+          
           <li class="nav-item">
             <!-- dashboard -->
             <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->segment(1) == '') ? 'active' : '' }}">
@@ -33,6 +36,45 @@
             </a>
 
 
+          </li>
+
+           
+
+          <li class="nav-item">
+            <!-- tickets -->
+            <a href="{{ route('ticket.index') }}" class="nav-link {{ (request()->segment(1) == 'tickets') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-ticket-alt"></i>
+              <p>
+                Tickets
+              </p>
+            </a>
+          </li>
+
+
+
+          <li class="nav-item">
+            <!-- profil -->
+            <a href="{{ route('profile') }}" class="nav-link {{ (request()->segment(1) == 'profile') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Profil
+              </p>
+            </a>
+          </li>
+
+
+
+          @can('admin')
+          <li class="nav-header">ADMIN</li>
+
+          <li class="nav-item">
+            <!-- templates -->
+            <a href="{{ route('templates.index') }}" class="nav-link {{ (request()->segment(1) == 'templates') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Vorlagen
+              </p>
+            </a>
           </li>
 
           <li class="nav-item">
@@ -46,36 +88,6 @@
           </li>
 
           <li class="nav-item">
-            <!-- tickets -->
-            <a href="{{ route('ticket.index') }}" class="nav-link {{ (request()->segment(1) == 'tickets') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-ticket-alt"></i>
-              <p>
-                Tickets
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <!-- templates -->
-            <a href="{{ route('templates.index') }}" class="nav-link {{ (request()->segment(1) == 'templates') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-file-alt"></i>
-              <p>
-                Vorlagen
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <!-- profil -->
-            <a href="{{ route('profile') }}" class="nav-link {{ (request()->segment(1) == 'profile') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Profil
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
             <a href="{{ route('logs.index') }}" class="nav-link {{ (request()->segment(1) == 'logs') ? 'active' : '' }}">
               <i class="nav-icon fas fa-history"></i>
               <p>
@@ -83,6 +95,7 @@
               </p>
             </a>
           </li>
+        @endcan 
 
         </ul>
       </nav>

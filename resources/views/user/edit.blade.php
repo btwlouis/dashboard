@@ -71,16 +71,19 @@
                             </div>
                         </div>
         
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="checkboxPrimary1" name="is_admin" {{ $user->hasPermission('team') ? 'checked' : '' }}>
-                                    <label for="checkboxPrimary1">
-                                        Admin
-                                    </label>
+                        @foreach($permissions as $permission)
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="icheck-primary">
+                                        <input type="checkbox" id="checkboxPrimary" name="permissions[]" value="{{ $permission->id }}" {{ $user->hasPermission($permission->name) ? 'checked' : '' }}>
+                                        <label for="checkboxPrimary">
+                                            {{ $permission->name }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
+                        
                         <div class="row">
                             <!-- /.col -->
                             <div class="col-12">
