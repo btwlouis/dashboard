@@ -20,6 +20,23 @@
                 <span class="info-box-icon"><i class="far fa-envelope"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Deine offenen Tickets</span>
+                    <span class="info-box-number">{{ $open_user_tickets }}</span>
+                    @if($open_user_tickets != 0 && $all_tickets != 0)
+                        <div class="progress">
+                            <div class="progress-bar" style="width: {{ number_format($open_user_tickets / $all_tickets * 100) }}%"></div>
+                        </div>
+                    @endif
+                </div>
+
+            </div>
+        </div>
+
+        <!-- show widget open tickets -->
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-gradient-success">
+                <span class="info-box-icon"><i class="far fa-copy"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Offene Tickets</span>
                     <span class="info-box-number">{{ $open_tickets }}</span>
                     @if($open_tickets != 0 && $all_tickets != 0)
                         <div class="progress">
@@ -34,7 +51,7 @@
         <!-- count user -->
 
         <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-gradient-success">
+            <div class="info-box bg-gradient-secondary">
                 <span class="info-box-icon"><i class="far fa-flag"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Tickets (insgesamt)</span>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Activitylog\Models\Activity;
+use Junges\ACL\Models\Permission;
 
 class UserController extends Controller
 {
@@ -18,8 +19,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $permissions = Permission::all();
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'permissions'));
     }
 
     public function update(Request $request, $id)
@@ -53,11 +55,7 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         
-        if($request->is_admin) {
-            $user->assignPermission('team');
-        } else {
-            $user->revokePermission('team');
-        }
+        $user->syncPermissions($request['permissions']);
 
         User::whereId($id)->update($data);
 
